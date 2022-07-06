@@ -141,7 +141,7 @@ class LinkedList:
                 if curr_node.data == data:
                     count -= 1
                     position_found.append(position)
-                    if not count:
+                    if count == 0:
                         return position_found
                 curr_node = curr_node.next
                 position += 1
