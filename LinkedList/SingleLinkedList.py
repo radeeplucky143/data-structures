@@ -107,7 +107,6 @@ class LinkedList:
                 self.length -= 1
 
 
-
     def delete(self, position) -> None:
         position_type = type(position)
         if position_type == str:
@@ -117,6 +116,20 @@ class LinkedList:
                 self.__delete_tail__()
         elif position_type == int:
             self.__delete_position(position)
+
+
+    def update(self, position, data) -> None:
+        if position <= self.length:
+            if position == 1:
+                self.head.data = data
+            elif position == self.length:
+                self.tail.data = data
+            else:
+                curr_node = self.head
+                while position > 1:
+                    curr_node = curr_node.next
+                    position -= 1
+                curr_node.data = data
 
 
     def traverse(self) -> None:
