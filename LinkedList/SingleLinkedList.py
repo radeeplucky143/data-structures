@@ -33,19 +33,19 @@ class LinkedList:
         self.length += 1
 
 
-    def __insert_pos__(self, data, pos) -> None:
-        if pos <= self.length+1:
-            if pos == 1:
+    def __insert_position__(self, data, position) -> None:
+        if position <= self.length+1:
+            if position == 1:
                 self.__insert_head__(data)
-            elif pos == self.length+1:
+            elif position == self.length+1:
                 self.__insert_tail__(data)
             else:
                 prev_node = None
                 curr_node = self.head
-                while pos > 1:
+                while position > 1:
                     prev_node = curr_node
                     curr_node = curr_node.next
-                    pos -= 1
+                    position -= 1
                 node = Node(data)
                 prev_node.next = node
                 node.next = curr_node
@@ -53,16 +53,70 @@ class LinkedList:
                 self.length += 1
 
 
-    def insert(self, data, pos='tail') -> None:
-        pos_type = type(pos)
-        if pos_type == str:
-            if pos == 'head':
+    def insert(self, data, position='tail') -> None:
+        position_type = type(position)
+        if position_type == str:
+            if position == 'head':
                 self.__insert_head__(data)
-            elif pos == 'tail':
+            elif position == 'tail':
                 self.__insert_tail__(data)
-        elif pos_type == int:
-            self.__insert_pos__(data,pos)
+        elif position_type == int:
+            self.__insert_position__(data,position)
 
+
+    def __delete_head__(self) -> None:
+        if self.head:
+            if self.head == self.tail:
+                self.head = self.tail = None
+            else:
+                self.head = self.head.next
+            self.length -= 1
+
+
+    def __delete_tail__(self) -> None:
+        if self.head:
+            if self.head == self.tail:
+                self.head = self.tail = None
+            else:
+                curr_node = self.head
+                prev_node = None
+                while curr_node != self.tail:
+                    prev_node = curr_node
+                    curr_node = curr_node.next
+                self.tail = prev_node
+                self.tail.next = None
+            self.length -= 1
+
+
+    def __delete_position(self, position) -> None:
+        if position <= self.length:
+            if position == 1:
+                self.__delete_head__()
+            elif position == self.length:
+                self.__delete_tail__()
+            else:
+                prev_node = None
+                curr_node = self.head
+                next_node = curr_node.next
+                while position > 1:
+                    prev_node = curr_node
+                    curr_node = next_node
+                    next_node = next_node.next
+                    position -= 1
+                prev_node.next = next_node
+                self.length -= 1
+
+
+
+    def delete(self, position) -> None:
+        position_type = type(position)
+        if position_type == str:
+            if position == 'head':
+                self.__delete_head__()
+            else:
+                self.__delete_tail__()
+        elif position_type == int:
+            self.__delete_position(position)
 
 
     def traverse(self) -> None:
@@ -77,27 +131,16 @@ class LinkedList:
             print("NULL")
 
 
-    def positional_pointer(self, pos) -> Node:
-        if type(pos) == int and pos <= self.length:
-            if pos == 1:
+    def positionitional_pointer(self, position) -> Node:
+        if type(position) == int and position <= self.length:
+            if position == 1:
                 return self.head
-            elif pos == self.length:
+            elif position == self.length:
                 return self.tail
             curr_node = self.head
-            curr_pos = 1
-            while curr_pos < pos:
+            curr_position = 1
+            while curr_position < position:
                 curr_node = curr_node.next
-                curr_pos += 1
+                curr_position += 1
             return curr_node
         return None
-
-
-
-ob = LinkedList()
-for i in range(1,10): ob.insert(i)
-ob.traverse()
-x = ob.positional_pointer(9)
-if x is not None:
-    print(x.data)
-else:
-    print(x)
