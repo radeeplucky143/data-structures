@@ -132,6 +132,23 @@ class LinkedList:
                 curr_node.data = data
 
 
+    def search(self, data, count=1) -> list:
+        position_found = list()
+        if self.head:
+            curr_node = self.head
+            position = 1
+            while curr_node:
+                if curr_node.data == data:
+                    count -= 1
+                    position_found.append(position)
+                    if not count:
+                        return position_found
+                curr_node = curr_node.next
+                position += 1
+            return position_found
+        return None
+
+
     def traverse(self) -> None:
         if self.head:
             curr_node = self.head
@@ -144,7 +161,7 @@ class LinkedList:
             print("NULL")
 
 
-    def positionitional_pointer(self, position) -> Node:
+    def positional_pointer(self, position) -> Node:
         if type(position) == int and position <= self.length:
             if position == 1:
                 return self.head
