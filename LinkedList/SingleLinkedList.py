@@ -180,9 +180,9 @@ class LinkedList:
 if __name__ == '__main__':
     next_time = 'Y'
     ob = LinkedList()
+    message = 'SingleLinkedList operations:\n     1.Insertion\n     2.Deletion\n     3.Update\n     4.Search\n     5.Positional pointer\n'
+    print(message)
     while next_time == 'Y':
-        message = 'SingleLinkedList operations:\n     1.Insertion\n     2.Deletion\n     3.Update\n     4.Search\n     5.Positional pointer\n'
-        print(message)
         choice = int(input("Please enter your choice of operation: "))
         if choice == 1:
             data = int(input("please enter data to insert: "))
@@ -205,7 +205,7 @@ if __name__ == '__main__':
         elif choice == 4:
             data = int(input("please enter data to search: "))
             count = int(input("please enter number of occurences : "))
-            ob.search(data,count)
+            print(f"Data Found in :{ob.search(data,count)} positions")
         elif choice == 5:
             position = int(input("please enter position number: "))
             print(f"{position} data: {ob.positional_pointer(position).data}")
