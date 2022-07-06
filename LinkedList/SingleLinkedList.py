@@ -134,7 +134,8 @@ class LinkedList:
 
     def search(self, data, count=1) -> list:
         position_found = list()
-        if self.head:
+        elements_found = count
+        if self.head and count >= 1:
             curr_node = self.head
             position = 1
             while curr_node:
@@ -145,7 +146,7 @@ class LinkedList:
                         return position_found
                 curr_node = curr_node.next
                 position += 1
-            return position_found
+            return position_found if elements_found != count else None
         return None
 
 
@@ -174,3 +175,44 @@ class LinkedList:
                 curr_position += 1
             return curr_node
         return None
+
+
+if __name__ == '__main__':
+    next_time = 'Y'
+    ob = LinkedList()
+    while next_time == 'Y':
+        message = 'SingleLinkedList operations:\n     1.Insertion\n     2.Deletion\n     3.Update\n     4.Search\n     5.Positional pointer\n'
+        print(message)
+        choice = int(input("Please enter your choice of operation: "))
+        if choice == 1:
+            data = int(input("please enter data to insert: "))
+            position = input("please enter position head/tail  or position<int> : ")
+            if position.isnumeric():
+                ob.insert(data,int(position))
+            else:
+                ob.insert(data,position)
+        elif choice == 2:
+            data = int(input("please enter data to delete: "))
+            position = input("please enter position head/tail  or position<int> : ")
+            if position.isnumeric():
+                ob.delete(data, int(position))
+            else:
+                ob.delete(data, position)
+        elif choice == 3:
+            data = int(input("please enter data to update: "))
+            position = int(input("please enter position number : "))
+            ob.update(position,data)
+        elif choice == 4:
+            data = int(input("please enter data to search: "))
+            count = int(input("please enter number of occurences : "))
+            ob.search(data,count)
+        elif choice == 5:
+            position = int(input("please enter position number: "))
+            print(f"{position} data: {ob.positional_pointer(position).data}")
+        else:
+            print("please enter correct choice")
+        print("Head: ", ob.head.data) if ob.head else print("Head: ",ob.head)
+        print("Tail:", ob.tail.data) if ob.tail else print("Tail: ", ob.tail)
+        print("Length: ", ob.length)
+        ob.traverse()
+        next_time = input("Do you want to perform another operation -> 'Y/N' : ")
