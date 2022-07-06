@@ -34,7 +34,7 @@ class LinkedList:
 
 
     def __insert_pos__(self, data, pos) -> None:
-        if pos <=  self.length+1:
+        if pos <= self.length+1:
             if pos == 1:
                 self.__insert_head__(data)
             elif pos == self.length+1:
@@ -75,3 +75,29 @@ class LinkedList:
             del curr_node
         else:
             print("NULL")
+
+
+    def positional_pointer(self, pos) -> Node:
+        if type(pos) == int and pos <= self.length:
+            if pos == 1:
+                return self.head
+            elif pos == self.length:
+                return self.tail
+            curr_node = self.head
+            curr_pos = 1
+            while curr_pos < pos:
+                curr_node = curr_node.next
+                curr_pos += 1
+            return curr_node
+        return None
+
+
+
+ob = LinkedList()
+for i in range(1,10): ob.insert(i)
+ob.traverse()
+x = ob.positional_pointer(9)
+if x is not None:
+    print(x.data)
+else:
+    print(x)
