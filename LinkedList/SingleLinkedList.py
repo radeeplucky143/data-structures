@@ -61,7 +61,7 @@ class LinkedList:
             elif position == 'tail':
                 self.__insert_tail__(data)
         elif position_type == int:
-            self.__insert_position__(data,position)
+            self.__insert_position__(data, position)
 
 
     def __delete_head__(self) -> None:
@@ -88,7 +88,7 @@ class LinkedList:
             self.length -= 1
 
 
-    def __delete_position(self, position) -> None:
+    def __delete_position__(self, position) -> None:
         if position <= self.length:
             if position == 1:
                 self.__delete_head__()
@@ -115,7 +115,7 @@ class LinkedList:
             else:
                 self.__delete_tail__()
         elif position_type == int:
-            self.__delete_position(position)
+            self.__delete_position__(position)
 
 
     def update(self, position, data) -> None:
@@ -180,39 +180,41 @@ class LinkedList:
 if __name__ == '__main__':
     next_time = 'Y'
     ob = LinkedList()
-    message = 'SingleLinkedList operations:\n     1.Insertion\n     2.Deletion\n     3.Update\n     4.Search\n     5.Positional pointer\n'
+    message = 'SingleLinkedList operations:\n     1.Insertion\n     2.Deletion\n     3.Update\n     4.Search\n     5.Traversal\n    6.Positional pointer\n'
     print(message)
     while next_time == 'Y':
-        choice = int(input("Please enter your choice of operation: "))
-        if choice == 1:
-            data = int(input("please enter data to insert: "))
-            position = input("please enter position head/tail  or position<int> : ")
-            if position.isnumeric():
-                ob.insert(data,int(position))
+        for _ in range(5):
+            choice = int(input("Please enter your choice of operation: "))
+            if choice == 1:
+                data = int(input("please enter data to insert: "))
+                position = input("please enter position head/tail  or position<int> : ")
+                if position.isnumeric():
+                    ob.insert(data, int(position))
+                else:
+                    ob.insert(data, position)
+            elif choice == 2:
+                data = int(input("please enter data to delete: "))
+                position = input("please enter position head/tail  or position<int> : ")
+                if position.isnumeric():
+                    ob.delete(data, int(position))
+                else:
+                    ob.delete(data, position)
+            elif choice == 3:
+                data = int(input("please enter data to update: "))
+                position = int(input("please enter position number : "))
+                ob.update(position, data)
+            elif choice == 4:
+                data = int(input("please enter data to search: "))
+                count = int(input("please enter number of occurences : "))
+                print(f"Data Found in :{ob.search(data, count)} positions")
+            elif choice == 5:
+                print("Head: ", ob.head.data) if ob.head else print("Head: ", ob.head)
+                print("Tail:", ob.tail.data) if ob.tail else print("Tail: ", ob.tail)
+                print("Length: ", ob.length)
+                ob.traverse()
+            elif choice == 6:
+                position = int(input("please enter position number: "))
+                print(f"{position} data: {ob.positional_pointer(position).data}")
             else:
-                ob.insert(data,position)
-        elif choice == 2:
-            data = int(input("please enter data to delete: "))
-            position = input("please enter position head/tail  or position<int> : ")
-            if position.isnumeric():
-                ob.delete(data, int(position))
-            else:
-                ob.delete(data, position)
-        elif choice == 3:
-            data = int(input("please enter data to update: "))
-            position = int(input("please enter position number : "))
-            ob.update(position,data)
-        elif choice == 4:
-            data = int(input("please enter data to search: "))
-            count = int(input("please enter number of occurences : "))
-            print(f"Data Found in :{ob.search(data,count)} positions")
-        elif choice == 5:
-            position = int(input("please enter position number: "))
-            print(f"{position} data: {ob.positional_pointer(position).data}")
-        else:
-            print("please enter correct choice")
-        print("Head: ", ob.head.data) if ob.head else print("Head: ",ob.head)
-        print("Tail:", ob.tail.data) if ob.tail else print("Tail: ", ob.tail)
-        print("Length: ", ob.length)
-        ob.traverse()
+                print("please enter correct choice")
         next_time = input("Do you want to perform another operation -> 'Y/N' : ")
