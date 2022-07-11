@@ -13,6 +13,17 @@ class LinkedList:
         self.length = 0
 
 
+    def __add__(self, linkedlist):
+        if self.head and linkedlist.head:
+            self.tail.next = linkedlist.head
+            self.tail = linkedlist.tail
+            self.length += linkedlist.length
+        elif linkedlist.head:
+            self.head = linkedlist.head
+            self.tail = linkedlist.tail
+            self.length = linkedlist.length
+
+
     def __insert_head__(self, data) -> None:
         if self.head is None:
             self.head = self.tail = Node(data)
